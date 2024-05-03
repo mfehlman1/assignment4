@@ -10,6 +10,8 @@ def zip_all_in_folder(folder_path, base_path, output_zip):
             for file in files:
                 # Create the full path to the file
                 file_path = os.path.join(root, file)
+                if '/databases/' in file_path:
+                    continue
                 # Write the file to the zip, adjust the arcname to customize how the paths are stored
                 zipf.write(file_path, arcname=os.path.relpath(file_path, start=base_path))
 

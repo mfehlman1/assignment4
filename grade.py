@@ -190,6 +190,7 @@ class Assignment(ProtoAssignment):
         self.goto('index')
         assert len(self.get_contacts()) == 0, "S1-1 There should be no contacts initially."
         self.browser.find_element(By.CSS_SELECTOR, "button#add_button").click()
+        time.sleep(SERVER_WAIT)
         cs = self.get_contacts()
         assert len(cs) == 1, "S1-2 A contact has been added."
         assert cs[0].find_element(By.CSS_SELECTOR, "input[name='name']").get_attribute("value") == "", "S1-3 The name is initially not empty."
@@ -253,7 +254,7 @@ class Assignment(ProtoAssignment):
         title = self.browser.find_element(By.CSS_SELECTOR, "h1.title")
         # We add a new contact. 
         self.browser.find_element(By.CSS_SELECTOR, "button#add_button").click()
-
+        time.sleep(SERVER_WAIT)
         # Then, we check that contact 0 still contains the original contact. 
         c0 = self.get_contacts()[0]
         i_name0 = c0.find_element(By.CSS_SELECTOR, "input[name='name']")
@@ -280,6 +281,7 @@ class Assignment(ProtoAssignment):
 
         # Now we check the persistence. 
         self.refresh()
+        time.sleep(SERVER_WAIT)
         c1 = self.get_contacts()[1]
         i_name1 = c1.find_element(By.CSS_SELECTOR, "input[name='name']")
         i_aff1 = c1.find_element(By.CSS_SELECTOR, "input[name='affiliation']")
