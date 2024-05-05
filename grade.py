@@ -100,11 +100,11 @@ class py4web(object):
         
     def goto(self, path):
         self.browser.get(f"http://127.0.0.1:{self.port}/{self.app_name}/{path}")
-        self.browser.implicitly_wait(0.2)
+        self.browser.implicitly_wait(SERVER_WAIT)
         
     def refresh(self):
         self.browser.refresh()
-        self.browser.implicitly_wait(0.2)
+        self.browser.implicitly_wait(SERVER_WAIT)
         
     def register_user(self, user):
         """Registers a user."""
@@ -241,6 +241,7 @@ class Assignment(ProtoAssignment):
 
     def step4(self):
         self.refresh()
+        time.sleep(SERVER_WAIT)
         c = self.get_contacts()[0]
         i_name = c.find_element(By.CSS_SELECTOR, "input[name='name']")
         i_aff = c.find_element(By.CSS_SELECTOR, "input[name='affiliation']")
@@ -298,6 +299,7 @@ class Assignment(ProtoAssignment):
 
     def step6(self):
         self.refresh()
+        time.sleep(SERVER_WAIT)
         contacts = self.get_contacts()
         test_image_urls = []
         # Uploads a figure for each contact. 
@@ -309,32 +311,29 @@ class Assignment(ProtoAssignment):
             img = random.choice(self.test_images)
             inp.send_keys(img)
             content.click() # To lose focus and trigger @change. 
-            time.sleep(0.5)
+            time.sleep(SERVER_WAIT)
             test_image_urls.append(image_to_data_url(img))
         self.refresh()
+        time.sleep(SERVER_WAIT)
         # Checks that the images are there. 
         contacts = self.get_contacts()
         for i, c in enumerate(contacts):
             img = c.find_element(By.CSS_SELECTOR, "img.photo")
             img_url = img.get_attribute("src")
-            # print("IMG URL  head:", img_url[:40])
-            # print("TEST URL head:", test_image_urls[i][:40])
-            # print("IMG URL  tail:", img_url[-20:])
-            # print("TEST URL tail:", test_image_urls[i][-20:])
             assert img.get_attribute("src") == test_image_urls[i], f"S6-1 The image {i} should be there."
         return 1, "Ihe image can be changed by clicking on the figure tag, and the new image is saved in the database."
     
     def step7(self):
         self.login(self.user2)
-        time.sleep(0.2)
+        time.sleep(SERVER_WAIT)
         contacts = self.get_contacts()
         assert len(contacts) == 0, "S7-1 User 2 should not see any contacts."
         self.login(self.user1)
-        time.sleep(0.2)
+        time.sleep(SERVER_WAIT)
         contacts = self.get_contacts()
         assert len(contacts) == 2, "S7-2 User 1 should see two contacts."
         self.login(self.user2)
-        time.sleep(0.2)
+        time.sleep(SERVER_WAIT)
          # We add a new contact. 
         self.browser.find_element(By.CSS_SELECTOR, "button#add_button").click()
         c = self.get_contacts()[0]
@@ -345,6 +344,7 @@ class Assignment(ProtoAssignment):
         container = self.browser.find_element(By.CSS_SELECTOR, "div.container")
         container.click() # To lose focus.
         self.refresh()
+        time.sleep(SERVER_WAIT)
         contacts = self.get_contacts()
         assert len(contacts) == 1, "S7-3 User 2 should see one contact."
         c = contacts[0]
@@ -354,28 +354,28 @@ class Assignment(ProtoAssignment):
 
     def step8(self):
         self.login(self.user1)
-        time.sleep(0.2)
+        time.sleep(SERVER_WAIT)
         contacts = self.get_contacts()
         assert len(contacts) == 2, "S8-1 User 1 should see two contacts."
         c = contacts[0]
         c.find_element(By.CSS_SELECTOR, "i.delete-button").click()
-        time.sleep(0.4)
+        time.sleep(SERVER_WAIT)
         contacts = self.get_contacts()
         assert len(contacts) == 1, f"S8-2 User 1 should see one contact; it sees {len(contacts)}."
         self.refresh()
-        time.sleep(0.5)
+        time.sleep(SERVER_WAIT)
         contacts = self.get_contacts()
         assert len(contacts) == 1, "S8-3 User 1 should see one contact after refresh."
         self.login(self.user2)
-        time.sleep(0.4)
+        time.sleep(SERVER_WAIT)
         contacts = self.get_contacts()
         assert len(contacts) == 1, "S8-4 User 2 should see one contact."
         self.login(self.user3)
-        time.sleep(0.4)
+        time.sleep(SERVER_WAIT)
         contacts = self.get_contacts()
         assert len(contacts) == 0, "S8-5 User 3 should see no contacts."
         self.login(self.user2)
-        time.sleep(0.4)
+        time.sleep(SERVER_WAIT)
         contacts = self.get_contacts()
         c = contacts[0]
         c.find_element(By.CSS_SELECTOR, "i.delete-button").click()
@@ -383,7 +383,7 @@ class Assignment(ProtoAssignment):
         contacts = self.get_contacts()
         assert len(contacts) == 0, "S8-6 User 2 should see no contacts."
         self.login(self.user1)
-        time.sleep(0.2)
+        time.sleep(SERVER_WAIT)
         contacts = self.get_contacts()
         assert len(contacts) == 1, "S8-7 User 1 should see one contact."
         return 1, "Deleting contacts works properly."
