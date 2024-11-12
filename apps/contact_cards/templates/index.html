@@ -45,7 +45,7 @@ accept=".jpg, .png, .jpeg, .gif, .bmp, .tif, .tiff|image/*">
               />
             </p>
           </div>
-          <div class="media-right"><i @click="deleteContact(contact)" @class="delete-button has-text-danger fa fa-trash trash"></i></div>
+          <div class="media-right"><i @click="deleteContact(contact)" : class="['delete-button', 'has-text-danger', 'fa', 'fa-trash', 'trash']"></i></div>
         </div>
           <textarea class="textarea"
                     v-model="contact.description"
