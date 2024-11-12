@@ -13,33 +13,45 @@ accept=".jpg, .png, .jpeg, .gif, .bmp, .tif, .tiff|image/*">
   <!-- Put here your Vue.js template -->
   <div class="container">
     <h1 class="title">Contacts</h1>
-    <div><button class="button is-success" id="add_button">Add Contact</button></div>
-    <div class="card contact mt-4">
+    <div><button class="button is-success" id="add_button" @click="addContact">Add Contact</button></div>
+    <div class="card contact mt-4" v-for="(contact, index) in contacts" :key="contact.id">
       <div class="card-content">
         <div class="media">
           <div class="media-left">
             <figure class="photo image is-96x96">
               <!-- Of course, below, the src field has to change in the vue implementation... -->
-              <img class="photo" src="https://bulma.io/assets/images/placeholders/96x96.png"/>
+              <img class="photo" :src="contact.contact_image || 'https://bulma.io/assets/images/placeholders/96x96.png'" @click="pickImage(contact)"/>
             </figure>
           </div>
           <div class="media-content">
             <p class="title person-name">
               <input type="text" class="input is-4 title" 
                     name="name"
+                    v-model="contact.name"
+                    @dblclick="editField(contact, 'name')"
+                    @blur="saveField(contact, 'name')"
+                    :readonly="contact.editing !== 'name'"
                     placeholder="Name"
               />
             </p>
             <p class="subtitle person-affiliation">
               <input type="text" class="input is-6" 
+                    v-model="contact.affiliation"
+                    @dblclick="editField(contact, 'affiliation')"
+                    @blur="saveField(contact, 'affiliation')"
+                    :readonly="contact.editing !== 'affiliation'"
                     placeholder="Affiliation"
                     name="affiliation"
               />
             </p>
           </div>
-          <div class="media-right"><i class="delete-button has-text-danger fa fa-trash trash"></i></div>
+          <div class="media-right"><i @click="deleteContact(contact)" @class="delete-button has-text-danger fa fa-trash trash"></i></div>
         </div>
           <textarea class="textarea"
+                    v-model="contact.description"
+                    @dblclick="editField(contact, 'description')"
+                    @blur="saveField(contact, 'description')"
+                    :readonly="contact.editing !== 'description'"
                     name="description"
                     placeholder="Description"
             ></textarea> 
@@ -55,6 +67,10 @@ accept=".jpg, .png, .jpeg, .gif, .bmp, .tif, .tiff|image/*">
 <script>
   let get_contacts_url = "[[=XML(get_contacts_url)]]";
   // Add more URLs if you wish. 
+  let add_contact_url = "[[=XML(add_contact_url)]]";
+  let delete_contact_url = "[[=XML(delete_contact_url)]]";
+  let update_contact_url = "[[=XML(update_contact_url)]]";
+  let upload_photo_url = "[[=XML(upload_photo_url)]]";
 </script>
 
 <script src="js/index.js"></script>
