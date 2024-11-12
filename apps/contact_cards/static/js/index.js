@@ -10,7 +10,7 @@ app.data = {
         return {
             contacts: [],
             new_contact: { name: "", affiliation: "", description: "", contact_image: "https://bulma.io/assets/images/placeholders/96x96.png" },
-            edit_contact: null,
+            edit_contact: null
         };
     },
     methods: {
