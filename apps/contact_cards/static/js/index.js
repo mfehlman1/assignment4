@@ -32,7 +32,7 @@ app.data = {
             .then(response =>response.json())
             .then(data => {
                 if (data.contact_id) {
-                    this.contacts.push({ ...this.new_contact, id: data.contact_id })
+                    this.contacts.push({ ...this.new_contact, id: data.contact_id });
                     this.resetContact();
                 }
                 else{
@@ -40,7 +40,7 @@ app.data = {
                 }
             })
             .catch(error => {
-                console.error("Server error: ", error)
+                console.error("Server error: ", error);
             });
         },
 
@@ -51,7 +51,7 @@ app.data = {
         deleteContact(contact) {
             fetch(`/delete_contact/${contact.id}`, { method: "DELETE" })
                 .then(() => {
-                    this.contacts = this.contacts.filter(c => c.id !== contact_id);
+                    this.contacts = this.contacts.filter(c => c.id !== contact.id);
                 });
         },
         
@@ -77,14 +77,14 @@ app.data = {
                 if (file) {
                     const formData = new FormData();
                     formData.append("photo", file);
-                    fetch(`/upload_photo/${contact_id}`, {
+                    fetch(`/upload_photo/${contact.id}`, {
                         method: "POST",
                         body: formData
                     })
                     .then(response => response.json())
                     .then(data => {
                         if (data.photo_url)
-                            contact.photo_url = data.photo_url;
+                            contact.image = data.photo_url;
                     });
                 }
             };
