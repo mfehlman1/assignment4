@@ -49,7 +49,7 @@ app.data = {
         },
 
         deleteContact(contact) {
-            fetch(`/$delete_contact_url/${contact.id}`, { method: "DELETE" })
+            fetch(`${delete_contact_url}/${contact.id}`, { method: "DELETE" })
                 .then(() => {
                     this.contacts = this.contacts.filter(c => c.id !== contact.id);
                 });
@@ -60,7 +60,7 @@ app.data = {
         },
 
         saveField(contact, field) {
-            fetch(`$update_contact_url/${contact.id}`, {
+            fetch(`${update_contact_url}/${contact.id}`, {
                 method: "PUT",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ [field]: contact[field] })
@@ -77,7 +77,7 @@ app.data = {
                 if (file) {
                     const formData = new FormData();
                     formData.append("photo", file);
-                    fetch(`/$upload_photo_url/${contact.id}`, {
+                    fetch(`${upload_photo_url}/${contact.id}`, {
                         method: "POST",
                         body: formData
                     })
