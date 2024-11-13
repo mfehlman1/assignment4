@@ -66,15 +66,9 @@ app.data = {
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ [field]: contact[field] })
             }) 
-            .then(response => response.json())
-            .then(data => {
-                if (data.status === "success") {
-                    contact.editing = null;
-                    console.log('Field ${field} updated for Contact ID: ${contact.id}');
-                }
-                else {
-                    console.error("Error updating contact:", data);
-                }
+            .then(() => {
+                contact.editing = null;
+                console.log('Field ${field} updated for Contact ID: ${contact.id}');
             })
             .catch(error => console.error("Error updating field: ", error));
         },
