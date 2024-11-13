@@ -67,6 +67,7 @@ app.data = {
             }) 
             .then(() => {
                 contact.editing = null;
+                this.loadContacts();
             });
         },
 
