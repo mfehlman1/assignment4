@@ -84,7 +84,12 @@ app.data = {
                         method: "POST",
                         body: formData
                     })
-                    .then(response => response.json())
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error("Response was invalid")
+                        }
+                        return response.json();
+                    })
                     .then(data => {
                         if (data.photo_url) {
                             contact.contact_image = data.photo_url;

@@ -98,7 +98,10 @@ def upload_photo(contact_id):
         abort(403)
     uploaded_photo = request.files.get("photo")
     if uploaded_photo:
-        photo_url = db.contact_card.contact_image.store(uploaded_photo, uploaded_photo.filename)
-        contact.update_record(contact_image=photo_url)
-        return dict(photo_url=URL('static', photo_url))
+        try:
+            photo_url = db.contact_card.contact_image.store(uploaded_photo, uploaded_photo.filename)
+            contact.update_record(contact_image=photo_url)
+            return dict(photo_url=URL('static', photo_url))
+        except Exception as e:
+            return dict(error=f"Error uploading image: {str(e)}")
     return dict(error = "photo not uploaded")
