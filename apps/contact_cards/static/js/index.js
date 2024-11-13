@@ -32,7 +32,7 @@ app.data = {
             .then(response =>response.json())
             .then(data => {
                 if (data.contact_id) {
-                    this.contacts.push({ ...this.new_contact, id: data.contact_id });
+                    this.loadContacts();
                     this.resetContact();
                 }
                 else{
@@ -51,7 +51,7 @@ app.data = {
         deleteContact(contact) {
             fetch(`${delete_contact_url}/${contact.id}`, { method: "DELETE" })
                 .then(() => {
-                    this.contacts = this.contacts.filter(c => c.id !== contact.id);
+                    this.loadContacts();
                 });
         },
         
