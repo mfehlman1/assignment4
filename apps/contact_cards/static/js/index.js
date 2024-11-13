@@ -19,6 +19,7 @@ app.data = {
             fetch(get_contacts_url)
             .then(response =>response.json())
             .then(data => {
+                console.log("Contacts from GET:", data.contacts);
                 this.contacts = data.contacts;
             });
         },
@@ -34,6 +35,7 @@ app.data = {
                 if (data.contact_id) {
                     this.contacts.push({ ...this.new_contact, id: data.contact_id });
                     this.resetContact();
+                    console.log("Contact added with ID:", data.contact.id);
                     this.loadContacts();
                 }
                 else{
@@ -69,8 +71,8 @@ app.data = {
             .then(response => response.json())
             .then(data => {
                 if (data.status === "success") {
-                    contact.editing = null;
                     console.log('Field ${field} updated for Contact ID: ${contact.id}');
+                    contact.editing = null;
                 }
                 else {
                     console.error("Error updating contact:", data);
