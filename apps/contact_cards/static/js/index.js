@@ -32,8 +32,8 @@ app.data = {
             .then(response =>response.json())
             .then(data => {
                 if (data.contact_id) {
+                    this.contacts.push({ ...this.new_contact, id: data.contact_id });
                     this.resetContact();
-                    this.loadContacts();
                 }
                 else{
                     console.error("Error adding contact: ", data);
@@ -51,7 +51,7 @@ app.data = {
         deleteContact(contact) {
             fetch(`${delete_contact_url}/${contact.id}`, { method: "DELETE" })
                 .then(() => {
-                    this.loadContacts();
+                    this.contacts = this.contacts.filter(c => c.id !== contact.id);
                 });
         },
         
@@ -67,7 +67,6 @@ app.data = {
             }) 
             .then(() => {
                 contact.editing = null;
-                this.loadContacts();
             });
         },
 
@@ -85,7 +84,7 @@ app.data = {
                     .then(response => response.json())
                     .then(data => {
                         if (data.photo_url)
-                            this.loadContacts();
+                            contact.contact_image = data.photo_url;
                     });
                 }
             };
