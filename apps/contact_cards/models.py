@@ -17,10 +17,10 @@ def get_time():
 db.define_table(
     'contact_card',
     Field("user_id", "reference auth_user"),
-    Field('contact_name', 'string', requires = IS_NOT_EMPTY()),
-    Field('contact_affiliation', 'string', requires= IS_NOT_EMPTY()),
-    Field('contact_description', 'text'),
-    Field('contact_image', 'upload'),
+    Field('name', 'string', requires = IS_NOT_EMPTY()),
+    Field('affiliation', 'string', requires= IS_NOT_EMPTY()),
+    Field('description', 'text'),
+    Field('image', 'upload'),
 )
 
 db.commit()

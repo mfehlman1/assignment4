@@ -47,7 +47,7 @@ def index():
 @action.uses(db, auth.user)
 def get_contacts():
     user_id = auth.current_user.get("id")
-    contacts = db(db.contact.user_id == user_id).select().as_list() # Complete. 
+    contacts = db(db.contact_card.user_id == user_id).select().as_list() # Complete. 
     return dict(contacts=contacts)
 
 # You can add more methods. 
@@ -73,12 +73,10 @@ def update_contact(contact_id):
     contact = db((db.contact_card.id == contact_id) & (db.contact_card.user_id == user_id)).select().first()
     if not contact:
         abort(403)
-    contact.update_record(
-        contact_name = request.json.get("name", contact.contact_name),
-        contact_affiliation = request.json.get("affiliation", contact.contact_affiliation),
-        contact_description = request.json.get("description", contact.contact_description)
-    )
-    db.commit()
+    updated_fields = {key: request.json[key] for key in request.json if key in ["name", "affiliation", "description"]}
+    if updated_fields:
+        contact.update_record(**updated_fields)
+        db.commit()
     return dict(status = "success")
 
 @action('delete_contact/<contact_id:int>', method = "DELETE")

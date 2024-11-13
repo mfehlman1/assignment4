@@ -26,10 +26,10 @@ accept=".jpg, .png, .jpeg, .gif, .bmp, .tif, .tiff|image/*">
           <div class="media-content">
             <p class="title person-name">
               <input type="text" class="input is-4 title" 
-                    v-model="contact.contact_name"
-                    @click="editField(contact, 'contact_name')"
-                    @blur="saveField(contact, 'contact_name')"
-                    :readonly="contact.editing !== 'contact_name'"
+                    v-model="contact.name"
+                    @click="editField(contact, 'name')"
+                    @blur="saveField(contact, 'name')"
+                    :readonly="contact.editing !== 'name'"
                     placeholder="Name"
                     name="name"
                     
@@ -37,10 +37,10 @@ accept=".jpg, .png, .jpeg, .gif, .bmp, .tif, .tiff|image/*">
             </p>
             <p class="subtitle person-affiliation">
               <input type="text" class="input is-6" 
-                    v-model="contact.contact_affiliation"
-                    @click="editField(contact, 'contact_affiliation')"
-                    @blur="saveField(contact, 'contact_affiliation')"
-                    :readonly="contact.editing !== 'contact_affiliation'"
+                    v-model="contact.affiliation"
+                    @click="editField(contact, 'affiliation')"
+                    @blur="saveField(contact, 'affiliation')"
+                    :readonly="contact.editing !== 'affiliation'"
                     placeholder="Affiliation"
                     name="affiliation"
               />
@@ -49,12 +49,12 @@ accept=".jpg, .png, .jpeg, .gif, .bmp, .tif, .tiff|image/*">
           <div class="media-right"><i @click="deleteContact(contact)" class="delete-button has-text-danger fa fa-trash trash"></i></div>
         </div>
           <textarea class="textarea"
-                    v-model="contact.contact_description"
-                    @click="editField(contact, 'contact_description')"
-                    @blur="saveField(contact, 'contact_description')"
-                    :readonly="contact.editing !== 'contact_description'"
-                    name="description"
+                    v-model="contact.description"
+                    @click="editField(contact, 'description')"
+                    @blur="saveField(contact, 'description')"
+                    :readonly="contact.editing !== 'description'"
                     placeholder="Description"
+                    name="description"
             ></textarea> 
         </div>
       </div>
