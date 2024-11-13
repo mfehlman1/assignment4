@@ -24,7 +24,7 @@ app.data = {
         },
 
         addContact() {
-            fetch("/add_contact", {
+            fetch(add_contact_url, {
                 method: "POST",
                 headers: { "Content-Type" : "application/json" },
                 body: JSON.stringify(this.new_contact)
