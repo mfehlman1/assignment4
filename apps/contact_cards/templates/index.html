@@ -26,12 +26,13 @@ accept=".jpg, .png, .jpeg, .gif, .bmp, .tif, .tiff|image/*">
           <div class="media-content">
             <p class="title person-name">
               <input type="text" class="input is-4 title" 
-                    name="name"
                     v-model="contact.contact_name"
                     @click="editField(contact, 'contact_name')"
                     @blur="saveField(contact, 'contact_name')"
                     :readonly="contact.editing !== 'contact_name'"
                     placeholder="Name"
+                    name="name"
+                    
               />
             </p>
             <p class="subtitle person-affiliation">
