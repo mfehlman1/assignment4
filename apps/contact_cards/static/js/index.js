@@ -35,7 +35,7 @@ app.data = {
                 if (data.contact_id) {
                     this.contacts.push({ ...this.new_contact, id: data.contact_id });
                     this.resetContact();
-                    console.log("Contact added with ID:", data.contact_id);
+                    console.log("Contact added with ID:", data.contact.id);
                     this.loadContacts();
                 }
                 else{
