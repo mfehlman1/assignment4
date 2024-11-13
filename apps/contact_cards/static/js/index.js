@@ -95,7 +95,7 @@ app.data = {
                     })
                     .then(updateResponse => updateResponse.json())
                     .then(updateData => {
-                        if (updateData.status = "success")
+                        if (updateData.status === "success")
                         {
                             console.log("Image URL updated successfully for: ", contact.id);
                         }
