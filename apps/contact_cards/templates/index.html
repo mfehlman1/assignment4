@@ -72,6 +72,30 @@ accept=".jpg, .png, .jpeg, .gif, .bmp, .tif, .tiff|image/*">
   let delete_contact_url = "[[=XML(delete_contact_url)]]";
   let update_contact_url = "[[=XML(update_contact_url)]]";
   let upload_photo_url = "[[=XML(upload_photo_url)]]";
+
+  document.addEventListener("DOMContentLoaded", function() {
+        if (window.location.pathname.includes('/auth/register')) {
+            const registrationForm = document.querySelector("form");
+            if (registrationForm && !registrationForm.querySelector("[name='password_again']")) {
+                // Create the password_again input field
+                const passwordAgainDiv = document.createElement("div");
+                const label = document.createElement("label");
+                label.setAttribute("for", "password_again");
+                label.textContent = "Confirm Password";
+                const input = document.createElement("input");
+                input.setAttribute("type", "password");
+                input.setAttribute("name", "password_again");
+                input.setAttribute("id", "password_again");
+                input.setAttribute("placeholder", "Confirm Password");
+                input.required = true;
+
+                // Append the label and input to the form
+                passwordAgainDiv.appendChild(label);
+                passwordAgainDiv.appendChild(input);
+                registrationForm.appendChild(passwordAgainDiv);
+            }
+        }
+    });
 </script>
 
 <script src="js/index.js"></script>
