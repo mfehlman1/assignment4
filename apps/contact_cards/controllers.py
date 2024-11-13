@@ -63,6 +63,7 @@ def add_contact():
         contact_description = request.json.get("description", ""),
         contact_image = "https://bulma.io/assets/images/placeholders/96x96.png"
     )
+    db.commit()
     return dict(contact_id = contact_id)
 
 @action('update_contact/<contact_id:int>', method = "PUT")
@@ -77,6 +78,7 @@ def update_contact(contact_id):
         contact_affiliation = request.json.get("affiliation", contact.contact_affiliation),
         contact_description = request.json.get("description", contact.contact_description)
     )
+    db.commit()
     return dict(status = "success")
 
 @action('delete_contact/<contact_id:int>', method = "DELETE")
