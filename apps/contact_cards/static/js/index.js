@@ -85,6 +85,7 @@ app.data = {
                     .then(data => {
                         if (data.photo_url)
                             contact.contact_image = data.photo_url;
+                            this.loadContacts();
                     });
                 }
             };
