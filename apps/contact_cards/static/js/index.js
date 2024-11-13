@@ -66,9 +66,15 @@ app.data = {
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ [field]: contact[field] })
             }) 
-            .then(() => {
-                contact.editing = null;
-                console.log('Field ${field} updated for Contact ID: ${contact.id}');
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === "success") {
+                    contact.editing = null;
+                    console.log('Field ${field} updated for Contact ID: ${contact.id}');
+                }
+                else {
+                    console.error("Error updating contact:", data);
+                }
             })
             .catch(error => console.error("Error updating field: ", error));
         },
@@ -84,12 +90,7 @@ app.data = {
                         method: "POST",
                         body: formData
                     })
-                    .then(response => {
-                        if (!response.ok) {
-                            throw new Error("Response was invalid")
-                        }
-                        return response.json();
-                    })
+                    .then(response => response.json())
                     .then(data => {
                         if (data.photo_url) {
                             contact.contact_image = data.photo_url;
@@ -97,7 +98,7 @@ app.data = {
                         
                         }
                     })
-                    .catch(error => console.error("Error uploading image:", error));
+                    .catch(error => console.error("Error uploading image:", error))
                 }
             };
             input.click();
