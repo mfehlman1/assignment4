@@ -68,7 +68,9 @@ app.data = {
             }) 
             .then(() => {
                 contact.editing = null;
-            });
+                console.log('Field ${field} updated for Contact ID: ${contact.id}');
+            })
+            .catch(error => console.error("Error updating field: ", error));
         },
 
         pickImage(contact) {
@@ -86,24 +88,11 @@ app.data = {
                     .then(data => {
                         if (data.photo_url) {
                             contact.contact_image = data.photo_url;
-                            fetch(`${update_contact_url}/${contact.id}`, {
-                                method: "PUT",
-                                headers: { "Content-Type": "application/json" },
-                                body: JSON.stringify({ contact_image: data.photo_url })
-                            });
+                            console.log('Image updated for contact ID: ${contact.id}');
+                        
                         }
                     })
-                    .then(updateResponse => updateResponse.json())
-                    .then(updateData => {
-                        if (updateData.status === "success")
-                        {
-                            console.log("Image URL updated successfully for: ", contact.id);
-                        }
-                        else {
-                            console.error("Error updating image URL: ", updateData);
-                        }
-                    })
-                    .catch(error => console.error("Error uploading image: ", error));
+                    .catch(error => console.error("Error uploading image:", error));
                 }
             };
             input.click();
