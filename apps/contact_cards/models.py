@@ -16,7 +16,7 @@ def get_time():
 
 db.define_table(
     'contact_card',
-    Field('user_email', default=get_user_email, requires = IS_EMAIL()),
+    Field("user_id", "reference auth_user"),
     Field('contact_name', 'string', requires = IS_NOT_EMPTY()),
     Field('contact_affiliation', 'string', requires= IS_NOT_EMPTY()),
     Field('contact_description', 'text'),

@@ -46,8 +46,8 @@ def index():
 @action('get_contacts')
 @action.uses(db, auth.user)
 def get_contacts():
-    user_email = get_user_email()
-    contacts = db(db.contact_card.user_email == user_email).select().as_list() # Complete. 
+    user_id = auth.current_user.get("id")
+    contacts = db(db.contact.user_id == user_id).select().as_list() # Complete. 
     return dict(contacts=contacts)
 
 # You can add more methods. 
@@ -55,9 +55,9 @@ def get_contacts():
 @action('add_contact', method = "POST")
 @action.uses(db, auth.user)
 def add_contact():
-    user_email = get_user_email()
+    user_id = auth.current_user.get("id")
     contact_id = db.contact_card.insert(
-        user_email = user_email,
+        user_id= user_id,
         contact_name = request.json.get("name", ""),
         contact_affiliation = request.json.get("affiliation", ""),
         contact_description = request.json.get("description", ""),
@@ -69,8 +69,8 @@ def add_contact():
 @action('update_contact/<contact_id:int>', method = "PUT")
 @action.uses(db, auth.user)
 def update_contact(contact_id): 
-    user_email = get_user_email()
-    contact = db((db.contact_card.id == contact_id) & (db.contact_card.user_email == user_email)).select().first()
+    user_id = auth.current_user.get("id")
+    contact = db((db.contact_card.id == contact_id) & (db.contact_card.user_id == user_id)).select().first()
     if not contact:
         abort(403)
     contact.update_record(
@@ -84,8 +84,8 @@ def update_contact(contact_id):
 @action('delete_contact/<contact_id:int>', method = "DELETE")
 @action.uses(db, auth.user)
 def delete_contact(contact_id):
-    user_email = get_user_email()
-    contact = db((db.contact_card.id == contact_id) & (db.contact_card.user_email == user_email)).select().first()
+    user_id = auth.current_user.get("id")
+    contact = db((db.contact_card.id == contact_id) & (db.contact_card.user_id == user_id)).select().first()
     if not contact:
         abort(403)
     contact.delete_record()
@@ -94,8 +94,8 @@ def delete_contact(contact_id):
 @action('upload_photo/<contact_id:int>', method = "POST")
 @action.uses(db, auth.user)
 def upload_photo(contact_id):
-    user_email = get_user_email()
-    contact = db((db.contact_card.id == contact_id) & (db.contact_card.user_email == user_email)).select().first()
+    user_id = auth.current_user.get("id")
+    contact = db((db.contact_card.id == contact_id) & (db.contact_card.user_id == user_id)).select().first()
     if not contact:
         abort(403)
     uploaded_photo = request.files.get("photo")
