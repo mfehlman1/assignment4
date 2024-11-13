@@ -28,7 +28,7 @@ accept=".jpg, .png, .jpeg, .gif, .bmp, .tif, .tiff|image/*">
               <input type="text" class="input is-4 title" 
                     name="name"
                     v-model="contact.name"
-                    @dblclick="editField(contact, 'name')"
+                    @click="editField(contact, 'name')"
                     @blur="saveField(contact, 'name')"
                     :readonly="contact.editing !== 'name'"
                     placeholder="Name"
@@ -37,7 +37,7 @@ accept=".jpg, .png, .jpeg, .gif, .bmp, .tif, .tiff|image/*">
             <p class="subtitle person-affiliation">
               <input type="text" class="input is-6" 
                     v-model="contact.affiliation"
-                    @dblclick="editField(contact, 'affiliation')"
+                    @click="editField(contact, 'affiliation')"
                     @blur="saveField(contact, 'affiliation')"
                     :readonly="contact.editing !== 'affiliation'"
                     placeholder="Affiliation"
@@ -49,7 +49,7 @@ accept=".jpg, .png, .jpeg, .gif, .bmp, .tif, .tiff|image/*">
         </div>
           <textarea class="textarea"
                     v-model="contact.description"
-                    @dblclick="editField(contact, 'description')"
+                    @click="editField(contact, 'description')"
                     @blur="saveField(contact, 'description')"
                     :readonly="contact.editing !== 'description'"
                     name="description"
