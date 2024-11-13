@@ -16,7 +16,7 @@ app.data = {
     methods: {
         // Complete. 
         loadContacts() {
-            fetch("/get_contacts")
+            fetch("/contact_cards/get_contacts")
             .then(response =>response.json())
             .then(data => {
                 this.contacts = data.contacts;
