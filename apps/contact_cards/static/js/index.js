@@ -95,9 +95,8 @@ app.data = {
                     .then(response => response.json())
                     .then(data => {
                         if (data.photo_url) {
-                            contact.contact_image = data.photo_url;
+                            contact.photo_url = data.photo_url;
                             console.log('Image updated for contact ID: ${contact.id}');
-                        
                         }
                     })
                     .catch(error => console.error("Error uploading image:", error))
