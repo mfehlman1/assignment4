@@ -27,7 +27,7 @@ app.data = {
         addContact() {
             fetch(add_contact_url, {
                 method: "POST",
-                headers: { "Content-Type" : "application/json" },
+                headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(this.new_contact)
             })
             .then(response =>response.json())
@@ -36,7 +36,6 @@ app.data = {
                     this.contacts.push({ ...this.new_contact, id: data.contact_id });
                     this.resetContact();
                     console.log("Contact added with ID:", data.contact_id);
-                    this.loadContacts();
                 }
                 else{
                     console.error("Error adding contact: ", data);

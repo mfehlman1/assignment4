@@ -64,7 +64,7 @@ def add_contact():
         contact_image = "https://bulma.io/assets/images/placeholders/96x96.png"
     )
     db.commit()
-    return dict(contact_id = contact_id)
+    return dict(contact_id=contact_id)
 
 @action('update_contact/<contact_id:int>', method = "PUT")
 @action.uses(db, auth.user)
