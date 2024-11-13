@@ -32,8 +32,8 @@ app.data = {
             .then(response =>response.json())
             .then(data => {
                 if (data.contact_id) {
-                    this.loadContacts();
                     this.resetContact();
+                    this.loadContacts();
                 }
                 else{
                     console.error("Error adding contact: ", data);
@@ -85,7 +85,6 @@ app.data = {
                     .then(response => response.json())
                     .then(data => {
                         if (data.photo_url)
-                            contact.contact_image = data.photo_url;
                             this.loadContacts();
                     });
                 }
