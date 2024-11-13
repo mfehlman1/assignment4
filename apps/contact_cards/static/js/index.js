@@ -93,6 +93,17 @@ app.data = {
                             });
                         }
                     })
+                    .then(updateResponse => updateResponse.json())
+                    .then(updateData => {
+                        if (updateData.status = "success")
+                        {
+                            console.log("Image URL updated successfully for: ", contact.id);
+                        }
+                        else {
+                            console.error("Error updating image URL: ", updateData);
+                        }
+                    })
+                    .catch(error => console.error("Error uploading image: ", error));
                 }
             };
             input.click();
