@@ -34,6 +34,7 @@ app.data = {
                 if (data.contact_id) {
                     this.contacts.push({ ...this.new_contact, id: data.contact_id });
                     this.resetContact();
+                    this.loadContacts();
                 }
                 else{
                     console.error("Error adding contact: ", data);
@@ -83,9 +84,15 @@ app.data = {
                     })
                     .then(response => response.json())
                     .then(data => {
-                        if (data.photo_url)
+                        if (data.photo_url) {
                             contact.contact_image = data.photo_url;
-                    });
+                            fetch(`${update_contact_url}/${contact.id}`, {
+                                method: "PUT",
+                                headers: { "Content-Type": "application/json" },
+                                body: JSON.stringify({ contact_image: data.photo_url })
+                            });
+                        }
+                    })
                 }
             };
             input.click();
